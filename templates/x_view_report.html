@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Scholars</title>
+    <style>
+        th:nth-child(1),
+        td:nth-child(1){
+            width: 40px;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+        th:nth-child(4),
+        td:nth-child(4) {
+          width: 100px;
+        }
+        
+        th:nth-child(2),
+        td:nth-child(2) {
+          width: calc(90% - 300px);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div id="cont" class="container">
+    <h1>Scholar Report</h1>
+    <table>
+        <caption><h3> Reviews </h3></caption>
+        <thead>
+            <tr>
+                <th>S No</th>
+                <th>Review</th>
+                <th>RAC No.</th>
+                <th>Date</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ review.review }}</td>
+                <td>{{ review.rac_no }}</td>
+                <td>{{ review.date_of_presentation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table>
+        <caption><h3> Recommendation </h3></caption>
+        <thead>
+            <tr>
+                <th>S No</th>
+                <th>Recommendation</th>
+                <th>RAC No.</th>
+                <th>Date</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for recom in recommendations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ recom.recommendation }}</td>
+                <td>{{ recom.rac_no }}</td>
+                <td>{{ recom.date_of_presentation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+{% endblock %}

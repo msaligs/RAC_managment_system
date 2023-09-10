@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Scholars</title>
+    <style>
+        th:nth-child(1){
+            width: 40px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div id="cont" class="container">
+
+        <table>
+            <thead>
+                <caption><h2>Supervisors Detail </h2></caption>
+                <tr>
+                    <th>S No</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Department</th>
+                    <th>University</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supervisor in supervisors %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="/supervisor_scholar/{{ supervisor.supervisor_id}}"> {{ supervisor.salutation }} {{ supervisor.name }} </a></td>
+                    <td>{{ supervisor.designation }}</td>
+                    <td>{{ supervisor.department }}</td>
+                    <td>{{ supervisor.university }}</td>
+                    <td> <a href="/update_supervisor/{{supervisor.supervisor_id}}">Update</a>  </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+
+
+{% endblock %}

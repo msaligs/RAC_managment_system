@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>Landing Page</title>
+{% endblock %}
+  
+
+{% block body %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Scholars</h2>
+    </div>
+    <div class="card-body">
+      <a href="/scholars" class="card-link">View Scholars</a>
+      <a href="/new_scholar" class="card-link">Add new Scholar</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Supervisors</h2>
+    </div>
+    <div class="card-body">
+      <a href="/supervisors" class="card-link">View Supervisors</a>
+      <a href="/new_supervisor" class="card-link">Add new Supervisor</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Reports</h2>
+    </div>
+    <div class="card-body">
+      <a href="/scholar_report" class="card-link">Create Individual Report</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

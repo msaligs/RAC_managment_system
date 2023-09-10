@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Scholars</title>
+    <style>
+        td:nth-child(1),
+        td:nth-child(3) {
+            width: 80px;
+            text-align: center;
+        }
+        .download-button {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .table-caption {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div id="cont" class="container">
+    <!-- <div class="download-button">
+        <a href="/download_report" class="btn btn-primary">Download Consolidated Report</a>
+    </div> -->
+    
+    <div>
+        <h2 style="margin-top: 15px;">{{ scholar.name }}</h2><br>
+        <a href="/download_report" class="btn btn-primary">Download Consolidated Report</a>
+    </div>
+    
+    {% if rac_reports|length == 0 %}
+    <br>
+    <div style="display: block;">
+        <p>No report available. <a href="/scholar_report">Create one!</a></p>
+    </div>
+    {% else %}
+    {% for rac_report in rac_reports %}
+
+    <table>
+ 
+        <thead>
+            <tr>
+                <th style="width: 150px;">RAC No. : {{ rac_report.rac_no }}</th>
+                <th>Date of Presentation : {{ rac_report.date_of_presentation }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Review</td>
+                <td>
+                    <ol>
+                    {% for rev in rac_report.review %}
+                        <li>{{ rev.review }}</li><br>
+                    {% endfor %}
+                    </ol>
+                </td>
+                <td rowspan="2" style="background-color: #ebe1dd;"><a href="#">Download Report</a></td>
+            </tr>
+            <tr>
+                <td>Suggestion</td>
+                <td>
+                    <ol>
+                    {% for rec in rac_report.recommendation %}
+                        <li>{{ rec.recommendation }}</li><br>
+                    {% endfor %}
+                    </ol>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

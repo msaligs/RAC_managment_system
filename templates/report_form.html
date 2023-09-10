@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+    <title>scholar report</title>
+    <style>
+        .form-row {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+      
+        .form-row label {
+          width: 200px;
+        }
+      
+        .form-row input[type="number"],
+        .form-row input[type="date"],
+        .form-row input[type="text"] {
+          flex: 1;
+        }
+      </style>
+{% endblock %} 
+
+{% block body %}
+  
+  <form action="/scholar_report" method="POST" id="report-form">
+    <h1>Report Form</h1>
+  
+    <div class="form-row">
+      <label for="scholar_id">Select Scholar:</label>
+      <select name="scholar_id" id="scholar_id">
+        <option value="select scholar" >Select Scholar</option>
+        {% for scholar in scholars %}
+        <option value="{{ scholar.scholar_id }}">{{ scholar.name }} (Roll No. : {{ scholar.roll_no}})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <br>
+  
+    <div class="form-row">
+      <label for="date">Presentation Date:</label>
+      <input type="date" id="date" name="date" required>
+      <label for="rac_no" style="margin-left: 20px;">RAC No.:</label>
+      <input type="number" min="1" max="30" id="rac_no" name="rac_no"  style="margin-right: 10px;" required>
+    </div>
+  
+    <br>
+
+    <div id="review-container">
+      <label for="review">Reviews:</label>
+      <input type="text" id="review" name="review" placeholder="Review" required>
+    </div>
+    <button type="button" class="add-button" id="add-review">Add More Review</button>
+
+    <br><br><br>
+
+    <div id="recommendation-container">
+      <label for="recommendation">Recommendations:</label>
+      <input type="text" id="recommendation" name="recommendation" placeholder="Recommendation" required>
+    </div>
+    <button type="button" class="add-button" id="add-recommendation">Add More Recommendation</button>
+
+    <br><br>
+
+    <input type="submit" value="Save Report">
+  </form>
+  
+  
+
+<script>
+    // Function to remove the corresponding input field and button
+    function removeInputField(container, button) {
+        container.removeChild(button.previousSibling); // Remove input field
+        container.removeChild(button); // Remove remove button
+    }
+
+    // Add Recommendation button click event handler
+    document.getElementById('add-recommendation').addEventListener('click', function () {
+        var container = document.getElementById('recommendation-container');
+
+        var recommendationInput = document.createElement('input');
+        recommendationInput.type = 'text';
+        recommendationInput.name = 'recommendation';
+        recommendationInput.placeholder = 'new recommendation';
+
+        var removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.innerText = 'X';
+        removeButton.addEventListener('click', function () {
+            removeInputField(container, removeButton);
+        });
+
+        container.appendChild(recommendationInput);
+        container.appendChild(removeButton);
+    });
+
+    // Add Review button click event handler
+    document.getElementById('add-review').addEventListener('click', function () {
+        var container = document.getElementById('review-container');
+
+        var reviewInput = document.createElement('input');
+        reviewInput.type = 'text';
+        reviewInput.name = 'review';
+        reviewInput.placeholder = 'Review';
+
+        var removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.innerText = 'X';
+        removeButton.addEventListener('click', function () {
+            removeInputField(container, removeButton);
+        });
+
+        container.appendChild(reviewInput);
+        container.appendChild(removeButton);
+    });
+</script>
+
+
+
+       
+{% endblock %}

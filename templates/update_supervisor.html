@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Update Supervisor Details</title>
+{% endblock %}
+
+{% block body %}
+    
+    <form action="/update_supervisor/{{ supervisor.supervisor_id }}" method="POST">
+        <h1>{{ supervisor.salutation }} {{ supervisor.name }}</h1>
+        <label for="salutation">Salutation:</label>
+        <select id="salutation" name="salutation" required>
+            <option value="">Select Salutation</option>
+            <option value="Prof." {% if supervisor.salutation == 'Prof.' %}selected{% endif %}>Prof.</option>
+            <option value="Dr." {% if supervisor.salutation == 'Dr.' %}selected{% endif %}>Dr.</option>
+            
+        </select>
+        
+        <label for="name">Supervisor Name:</label>
+        <input type="text" id="name" name="name" value="{{ supervisor.name }}" required>
+        
+        <label for="designation">Designation:</label>
+        <select id="designation" name="designation" required>
+            <option value="">Select Designation</option>
+            <option value="Professor" {% if supervisor.designation == 'Professor' %}selected{% endif %}>Professor</option>
+            <option value="Associate Professor" {% if supervisor.designation == 'Associate Professor' %}selected{% endif %}>Associate Professor</option>
+            <option value="Assistant Professor" {% if supervisor.designation == 'Assistant Professor' %}selected{% endif %}>Assistant Professor</option>
+        </select>
+        
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" value="{{ supervisor.department }}" required>
+        
+        <label for="university">University:</label>
+        <input type="text" id="university" name="university" value="{{ supervisor.university }}" required>
+        
+        <input type="submit" value="Update Supervisor">
+    </form>
+    
+    
+    
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Scholars</title>
+    <style>
+        th:nth-child(1),
+        th:nth-child(1) {
+            width: 40px;
+        }
+
+        h2 {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+            padding: 5px 20px 5px 20px;
+        }
+
+        .search-input {
+            display: none;
+        }
+
+        select,
+        input[type="text"] {
+            width: 200px;
+        }
+
+        button[type="submit"] {
+            width: auto;
+            padding: 5px 20px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <form action="/scholars" method="POST" class="search-form" id="search-form">
+        <!-- Search criteria dropdown -->
+        <label for="search_criteria">Search Criteria:</label>
+        <select name="search_criteria" id="search_criteria">
+            <option value="name" selected>Name</option>
+            <option value="roll_no">Roll No</option>
+            <option value="year_of_admission">Year of Admission</option>
+            <option value="status">Status</option>
+            <option value="supervisor">Supervisor</option>
+        </select>
+
+        <!-- Input fields for different search criteria -->
+    
+        <input type="text" name="name_input" class="search-input" id="name_input" placeholder="Enter Name" style="display: block;" required>
+
+        <input type="text" name="roll_no_input" class="search-input" id="roll_no_input" placeholder="Enter Roll No">
+
+        <input type="text" name="supervisor_input" class="search-input" id="supervisor_input" placeholder="Enter Supervisor Name">
+
+        <select name="year_of_admission_input" class="search-input" id="year_of_admission_input">
+            <!-- JavaScript code will populate the options dynamically -->
+        </select>
+
+        <select name="status_input" class="search-input"  id="status_input">
+            <option value="In Progress">In Progress</option>
+            <option value="Awarded">Awarded</option>
+            <option value="De-Registered">De-Registered</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+
+        <!-- Submit button -->
+        <button type="submit">Search</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Populate the options for "Year of Admission" dynamically
+            var yearOfAdmissionSelect = document.getElementById('year_of_admission_input');
+            var currentYear = new Date().getFullYear();
+            var startYear = 2010; // Start year for the options
+    
+            for (var year = currentYear; year >= startYear; year--) {
+                var option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearOfAdmissionSelect.appendChild(option);
+            }
+    
+            // Update input fields based on the selected search criteria
+            document.getElementById('search_criteria').addEventListener('change', function () {
+                var nameInput = document.getElementById('name_input');
+                var rollNoInput = document.getElementById('roll_no_input');
+                var yearOfAdmissionInput = document.getElementById('year_of_admission_input');
+                var statusInput = document.getElementById('status_input');
+                var supervisorInput = document.getElementById('supervisor_input')
+    
+                nameInput.style.display = 'none';
+                rollNoInput.style.display = 'none';
+                yearOfAdmissionInput.style.display = 'none';
+                statusInput.style.display = 'none';
+                supervisorInput.style.display = 'none';
+    
+                if (this.value === 'name') {
+                    nameInput.style.display = 'block';
+                    nameInput.setAttribute('required', 'required');
+                    rollNoInput.removeAttribute('required');
+                    yearOfAdmissionInput.removeAttribute('required');
+                    statusInput.removeAttribute('required');
+                    supervisorInput.removeAttribute('required');
+                } else if (this.value === 'roll_no') {
+                    rollNoInput.style.display = 'block';
+                    rollNoInput.setAttribute('required', 'required');
+                    nameInput.removeAttribute('required');
+                    yearOfAdmissionInput.removeAttribute('required');
+                    statusInput.removeAttribute('required');
+                    supervisorInput.removeAttribute('required');
+                } else if (this.value === 'year_of_admission') {
+                    yearOfAdmissionInput.style.display = 'block';
+                    yearOfAdmissionInput.setAttribute('required', 'required');
+                    nameInput.removeAttribute('required');
+                    rollNoInput.removeAttribute('required');
+                    statusInput.removeAttribute('required');
+                    supervisorInput.removeAttribute('required');
+                } else if (this.value === 'status') {
+                    statusInput.style.display = 'block';
+                    statusInput.setAttribute('required', 'required');
+                    nameInput.removeAttribute('required');
+                    rollNoInput.removeAttribute('required');
+                    yearOfAdmissionInput.removeAttribute('required');
+                    supervisorInput.removeAttribute('required');
+                } else if (this.value === 'supervisor') {
+                    supervisorInput.style.display = 'block';
+                    supervisorInput.setAttribute('required', 'required');
+                    statusInput.removeAttribute('required');
+                    nameInput.removeAttribute('required');
+                    rollNoInput.removeAttribute('required');
+                    yearOfAdmissionInput.removeAttribute('required');
+                }
+
+            });
+    
+            document.getElementById('search-form').addEventListener('submit', function (e) {
+                // e.preventDefault();
+                var search_criteria = document.getElementById('search_criteria').value;
+                var nameInput = document.getElementById('name_input');
+                var rollNoInput = document.getElementById('roll_no_input');
+                var yearOfAdmissionInput = document.getElementById('year_of_admission_input');
+                var statusInput = document.getElementById('status_input');
+                var supervisorInput = document.getElementById('supervisor_input')
+    
+                if (search_criteria !== 'name') {
+                    nameInput.removeAttribute('required');
+                    nameInput.disabled = true;
+                }
+    
+                if (search_criteria !== 'roll_no') {
+                    rollNoInput.disabled = true;
+                }
+    
+                if (search_criteria !== 'year_of_admission') {
+                    yearOfAdmissionInput.disabled = true;
+                }
+    
+                if (search_criteria !== 'status') {
+                    statusInput.disabled = true;
+                }
+                if (search_criteria !== 'supervisor'){
+                    supervisorInput.disabled = true;
+                }
+    
+                // Perform your search or further actions here
+            });
+        });
+    </script>
+    
+
+        
+    
+
+    
+    <table>
+        <caption><h2>Scholars Detail</h2></caption>
+        <thead>
+            <tr>
+                <th>S No</th>
+                <th>Name</th>
+                <th>Roll No.</th>
+                <th>Supervisor</th>
+                <th>Research Topic</th>
+                <th>Edit</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for scholar in scholars %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ scholar.name }}</td>
+                <td>{{ scholar.roll_no }}</td>
+                <td style="white-space: nowrap;">{{ scholar.supervisor.salutation }} {{ scholar.supervisor.name }}</td>
+                <td>{{ scholar.research_topic }}</td>
+                <td><a href="/scholar_card/{{ scholar.scholar_id }}">e</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    
+
+</div>
+
+
+
+
+{% endblock %}

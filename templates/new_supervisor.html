@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head%}
+    <title> New Supervisor</title>
+{% endblock %}
+
+{% block body %}
+
+<form action="/new_supervisor" method="POST">
+    <h1>Add New Supervisor</h1>
+    <label for="salutation">Salutation:</label>
+    <select id="salutation" name="salutation" required>
+            <option value="Prof.">Select Salutation</option>
+            <option value="Prof.">Prof.</option>
+            <option value="Dr.">Dr.</option>
+    </select>
+
+    <br><br>
+
+    <label for="name">Supervisor Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <br><br>
+
+    <label for="designation">Designation:</label>
+    <select id="designation" name="designation" required>
+            <option value="Professor">Professor</option>
+            <option value="Associate Professor">Associate Professor</option>
+            <option value="Assistant Professor.">Assistant Professor</option>
+    </select>
+    
+    <br><br>
+
+    <label for="department">Department:</label>
+    <input type="text" id="department" name="department" required>
+    
+    <br><br>
+
+    <label for="university">University:</label>
+    <input type="text" id="university" name="university" required>
+    
+    <br><br>
+    
+    <input type="submit" value="Add Supervisor">
+  </form>
+  
+
+{% endblock %}

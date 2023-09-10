@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Update Scholar Details</title>
+{% endblock %}
+
+{% block body %}
+    
+    
+    <form action="/update_scholar/{{ scholar.scholar_id }}" method="POST" onsubmit="return validateForm()">
+        <h1> {{ scholar.name }}</h1>
+        <input type="number" id="ID" name="ID" value="{{ scholar.scholar_id }}" disabled hidden>
+    
+        <label for="name">Scholar Name:</label>
+        <div class="input-container">
+            <input type="text" id="name" name="name" value="{{ scholar.name }}" disabled>
+            <button type="button" class="edit-button" onclick="toggleField('name')">Edit</button>
+        </div>
+    
+        <label for="roll_no">Roll Number:</label>
+        <div class="input-container">
+            <input type="text" id="roll_no" name="roll_no" value="{{ scholar.roll_no }}" disabled>
+            <button type="button" class="edit-button" onclick="toggleField('roll_no')">Edit</button>
+        </div>
+    
+        <label for="year_of_admission">Date of Registration:</label>
+        <div class="input-container">
+            <select id="year_of_admission" name="year_of_admission" disabled>
+                <option value="">Select Year</option>
+                {% for year in range(2010, 2051) %}
+                    <option value="{{ year }}" {% if year|string == scholar.year_of_admission|string %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="edit-button" onclick="toggleField('year_of_admission')">Edit</button>
+        </div>
+        <br>
+        <label for="full_time">
+            <input type="radio" id="full_time_yes" name="full_time" value="true" {% if scholar.full_time %}checked{% endif %}> Full-Time
+            <input type="radio" id="full_time_no" name="full_time" value="false" {% if not scholar.full_time %}checked{% endif %}> Part-Time
+            
+        </label>
+
+        <label for="research_topic">Research Topic:</label>
+        <textarea id="research_topic" name="research_topic">{{ scholar.research_topic }}</textarea>
+    
+        
+    
+        <label for="supervisor_id">Supervisor Name:</label>
+        <select id="supervisor_id" name="supervisor_id" required>
+            <option value="">Select Supervisor</option>
+            {% for sup in supervisor %}
+                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.supervisor_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="hod_nominee_id">HOD Nominee Name:</label>
+        <select id="hod_nominee_id" name="hod_nominee_id">
+            <option value="">Select HoD Nominee</option>
+            {% for sup in supervisor %}
+                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.hod_nominee_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="supervisor_nominee_id">Supervisor Nominee Name:</label>
+        <select id="supervisor_nominee_id" name="supervisor_nominee_id">
+            <option value="">Select Supervisor Nominee</option>
+            {% for sup in supervisor %}
+                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.supervisor_nominee_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
+            {% endfor %}
+        </select>
+    
+        <input type="submit" value="Update Scholar">
+    </form>
+
+
+    <script>
+        function validateForm() {
+            var supervisor = document.getElementById("supervisor_id").value;
+            var hodNominee = document.getElementById("hod_nominee_id").value;
+            var supervisorNominee = document.getElementById("supervisor_nominee_id").value;
+
+            if ((supervisor && supervisor === hodNominee) ||
+                (supervisor && supervisor === supervisorNominee) ||
+                (hodNominee && hodNominee === supervisorNominee)) {
+                alert("Please select different options.");
+                return false;
+            }
+
+            return true;
+        }
+
+
+        function toggleField(fieldId) {
+            var field = document.getElementById(fieldId);
+            var button = field.nextElementSibling;
+            
+            if (field.disabled) {
+                field.disabled = false;
+                // button.innerText = "Save";
+                button.parentNode.removeChild(button);  
+            } 
+            // else {
+            //     field.disabled = true;
+            //     button.innerText = "Edit";
+            // }
+        }
+    </script>
+{% endblock %}

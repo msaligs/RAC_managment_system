@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title></title>
+{% endblock %}
+
+{% block body %}
+    
+    <form action="/new_scholar" method="POST">
+        <h1>Add New Scholar</h1>
+        <label for="name">Scholar Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <br><br>
+
+        <label for="roll_no">Roll Number:</label>
+        <input type="text" id="roll_no" name="roll_no" required>
+        
+        <br><br>
+        
+        <label for="year_of_admission">Year of Admission:</label>
+        <select id="year_of_admission" name="year_of_admission" required>
+            <option value="">Select Year</option>
+            
+            {% for year in range(2010, 2051) %}
+                <option value="{{ year }}" >{{ year }}</option>
+            {% endfor %}
+        </select>
+        
+        <br><br>
+        
+        <label for="research_topic">Research Topic:</label>
+        <textarea id="research_topic" name="research_topic"></textarea>
+        
+        <br><br>
+        
+        <label for="full_time">
+          <input type="radio" id="full_time_yes" name="full_time" value="true"> Full-Time
+          <input type="radio" id="full_time_no" name="full_time" value="false"> Part-Time
+        </label>
+        
+        <br>
+        
+        <label for="supervisor_id">Supervisor Name:</label>
+        <select id="supervisor_id" name="supervisor_id" required>
+          <option value="">Select Supervisor</option>
+          {% for sup in supervisor %}
+            <option value="{{ sup.supervisor_id}}">{{ sup.salutation}} {{ sup.name}}</option>
+
+          {% endfor %}
+        </select>
+        
+        <br><br>
+        
+        <label for="hod_nominee_id">HOD Nominee Name:</label>
+        <select id="hod_nominee_id" name="hod_nominee_id" >
+            <option value="">Select HoD Nominee</option>
+            {% for sup in supervisor %}
+            <option value="{{ sup.supervisor_id}}">{{ sup.salutation}} {{ sup.name}}</option>
+
+            {% endfor %}
+        </select>
+        
+        <br><br>
+        
+        <label for="supervisor_nominee_id">Supervisor Nominee Name:</label>
+        <select id="supervisor_nominee_id" name="supervisor_nominee_id" >
+          <option value="">Select Supervisor Nominee</option>
+          {% for sup in supervisor %}
+            <option value="{{ sup.supervisor_id}}">{{ sup.salutation}} {{ sup.name}}</option>
+
+          {% endfor %}
+        </select>
+        
+        <br><br>
+        
+        <input type="submit" value="Add Scholar">
+      
+    </form>
+
+    <script>
+        function validateForm() {
+            var supervisor = document.getElementById("supervisor_id").value;
+            var hodNominee = document.getElementById("hod_nominee_id").value;
+            var supervisorNominee = document.getElementById("supervisor_nominee_id").value;
+    
+            if (supervisor === hodNominee || supervisor === supervisorNominee || hodNominee === supervisorNominee) {
+                alert("Please select different options for Supervisor, HOD Nominee, and Supervisor Nominee.");
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
+{% endblock %}

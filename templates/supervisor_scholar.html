@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Supervisor`s Scholar</title>
+    <style>
+        th:nth-child(1),
+        td:nth-child(1) {
+          width: 40px;
+          
+        }
+
+        th:nth-child(1)
+         {
+          padding-left: 2px;
+          padding-right: 2px;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3),
+
+        th:nth-child(5),
+        td:nth-child(5),
+        
+        th:nth-child(7),
+        td:nth-child(7){
+          width: 75px;
+        }
+        
+        th:nth-child(2),
+        td:nth-child(2) {
+          width: 150px;
+        }
+
+        th:nth-child(6),
+        td:nth-child(6) {
+          width: 110px;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4){
+            width: calc(90% - 525px);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div id="cont" class="container">
+
+<!-- Scholars list  -->
+    
+{% if supervisor.scholar|length != 0 %}   
+    <table>
+        <caption><h3> {{ supervisor.salutation }}{{ supervisor.name}}`s Scholar as supervisor </h3></caption>
+        
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Scholar Name</th>
+                <th>Roll no</th>
+                <th>Topic</th>
+                <th>Part Time/Full Time</th>
+                <th>Status</th>
+                <th>Date of Award</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for scholar in supervisor.scholar %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/scholar_card/{{ scholar.scholar_id }}"> {{ scholar.name }} </a></td>
+                <td>{{ scholar.roll_no}}</td>
+                <td>{{ scholar.research_topic }} </td>
+                <td>{% if scholar.full_time %} Full Time {% else %} Part Time {% endif %} </td>
+                <td> {{ scholar.status}}</td>
+                <td> {{ scholar.date_of_award }} </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+{% endif %} 
+
+<!-- supervisor nominee scholar list -->
+
+{% if supervisor.supervisor_nominee_scholar|length != 0 %}
+    <table>
+        <caption><h3> {{ supervisor.salutation }}{{ supervisor.name}}`s Scholar as supervisor`s nominee </h3></caption>
+
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Scholar Name</th>
+                <th>Roll no</th>
+                <th>Topic</th>
+                <th>Part Time/Full Time</th>
+                <th>Status</th>
+                <th>Date of Award</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for scholar in supervisor.supervisor_nominee_scholar %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/scholar_card/{{ scholar.scholar_id }}"> {{ scholar.name }} </a></td>
+                <td>{{ scholar.roll_no}}</td>
+                <td>{{ scholar.research_topic }} </td>
+                <td>{% if scholar.full_time %} Full Time {% else %} Part Time {% endif %} </td>
+                <td> {{ scholar.status}}</td>
+                <td> {{ scholar.date_of_award }} </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+{% endif %}
+
+<!-- hod nominee scholar list  -->
+
+{% if supervisor.hod_nominee_scholar|length != 0 %}
+    <table>
+        <caption><h3> {{ supervisor.salutation }}{{ supervisor.name}}`s Scholar as Hod nominee </h3></caption>
+
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Scholar Name</th>
+                <th>Roll no</th>
+                <th>Topic</th>
+                <th>Part Time/Full Time</th>
+                <th>Status</th>
+                <th>Date of Award</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for scholar in supervisor.hod_nominee_scholar %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="/scholar_card/{{ scholar.scholar_id }}"> {{ scholar.name }} </a></td>
+                <td>{{ scholar.roll_no}}</td>
+                <td>{{ scholar.research_topic }} </td>
+                <td>{% if scholar.full_time %} Full Time {% else %} Part Time {% endif %} </td>
+                <td> {{ scholar.status}}</td>
+                <td> {{ scholar.date_of_award }} </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+{% endif %}  
+
+
+</div>
+
+
+{% endblock %}
