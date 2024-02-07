@@ -2,37 +2,27 @@
 
 {% block head %}
   <title>Landing Page</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 {% endblock %}
   
 
 {% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <div class="container">
-  <div class="card">
-    <div class="card-header">
-      <h2>Scholars</h2>
-    </div>
-    <div class="card-body">
-      <a href="/scholars" class="card-link">View Scholars</a>
-      <a href="/new_scholar" class="card-link">Add new Scholar</a>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="card-header">
-      <h2>Supervisors</h2>
-    </div>
-    <div class="card-body">
-      <a href="/supervisors" class="card-link">View Supervisors</a>
-      <a href="/new_supervisor" class="card-link">Add new Supervisor</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <h2>Reports</h2>
-    </div>
-    <div class="card-body">
-      <a href="/scholar_report" class="card-link">Create Individual Report</a>
+  <div class="row">
+    <div class="col">
+      {{ chart_html | safe }}
+      
     </div>
   </div>
 </div>

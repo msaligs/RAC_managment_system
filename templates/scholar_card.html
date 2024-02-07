@@ -2,152 +2,205 @@
 
 {% block head %}
 <style>
-    
-    .profile-card {
-      max-width: 600px;
-      min-width: 500px;
-      background-color: #f9f9f9;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+  .profile-card {
+    max-width: 600px;
+    min-width: 500px;
+    background-color: #F0D4AE;
+    /* background-color: #f9f9f9; */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-    .profile-card h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
+  .profile-card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
 
-    .profile-card img {
-      width: 150px;
-      height: 150px;
-      border-radius: 20% 20% 50% 50%;
-      margin: 0 auto 10px;
-      display: block;
-      border: 5px solid #ccc; /* Add border style */
-    }
+  .profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20% 20% 50% 50%;
+    margin: 0 auto 10px;
+    display: block;
+    border: 5px solid #ccc;
+    /* Add border style */
+  }
 
-    .profile-card table {
-      width: 95%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
+  .profile-card table {
+    width: 95%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
 
-    .profile-card th, .profile-card td {
-      padding: 8px;
-      border-bottom: 1px solid #ccc;
-    }
+  .profile-card th,
+  .profile-card td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
 
-    .profile-card th {
-      background-color: #9F2B00;
-      color: #fff;
-      font-weight: bold;
-      
-    }
-    th {
-      width: 185px;
-      text-align: left;
-    }
+  .profile-card th {
+    background-color: #9F2B00;
+    color: #fff;
+    font-weight: bold;
 
-    .profile-card td {
-      background-color: #F8EDE3;
-    }
+  }
 
-    .profile-card .table-wrapper {
-      overflow-x: auto;
-      margin-top: 20px;
-    }
+  th {
+    width: 185px;
+    text-align: left;
+  }
 
-    .profile-card .btn-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
+  .profile-card td {
+    background-color: #F8EDE3;
+  }
 
-    .profile-card .btn {
-      flex: 0 0 auto;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-    }
+  .profile-card .table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+  }
 
-    .profile-card .btn:hover {
-      background-color: #45a049;
-    }
-  </style>
+  .profile-card .btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .profile-card .btn {
+    flex: 0 0 auto;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .profile-card .btn:hover {
+    background-color: #45a049;
+  }
+</style>
 {% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 <div class="profile-card">
-    <img src="{{ url_for('static', filename='Niqbal.jpg') }}" alt="Scholar's Picture">
-    <h2>{{ scholar.name }}</h2>
-    <div class="table-wrapper">
-        <table>
-            <tr>
-                <th>Roll No.</th>
-                <td>{{ scholar.roll_no }}</td>
-            </tr>
-            <tr>
-                <th>Registration Date</th>
-                <td>{{ scholar.year_of_admission }}</td>
-            </tr>
-            <tr>
-              <th>Gender</th>
-              <td>NA</td>
-          </tr>
-            <tr>
-                <th>Research Topic</th>
-                <td>{{ scholar.research_topic }}</td>
-            </tr>
-            <tr>
-                <th>Full-Time</th>
-                <td>{% if scholar.full_time %} Full Time {% else %} Part Time{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Supervisor</th>
-                <td>{{ scholar.supervisor.salutation }}{{ scholar.supervisor.name }}</td>
-            </tr>
-            <tr>
-                <th>HOD Nominee</th>
-                <td>{{ scholar.hod_nominee.salutation }}{{ scholar.hod_nominee.name }}</td>
-            </tr>
-            <tr>
-                <th>Supervisor Nominee</th>
-                <td>{{ scholar.supervisor_nominee.salutation }}{{ scholar.supervisor_nominee.name }}</td>
-            </tr>
+  <!-- <img src="{{ url_for('static', filename='Niqbal.jpg') }}" alt="Scholar's Picture"> -->
+  <img src="https://placehold.co/150x150" alt="Scholar's Picture">
+  <h2>{{ scholar.name }}</h2>
+  <div class="table-wrapper">
+    <table>
+      <tr>
+        <th>Roll No.</th>
+        <td>{{ scholar.roll_no }}</td>
+      </tr>
+      <tr>
+        <th>Registration Date</th>
+        <td>{{ scholar.date_of_admission }}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>{{scholar.gender}}</td>
+      </tr>
+      <tr>
+        <th>Research Topic</th>
+        <td>{{ scholar.research_topic|trim }}</td>
+      </tr>
+      <tr>
+        <th>Full-Time</th>
+        <td>{% if scholar.full_time %} Full Time {% else %} Part Time{% endif %}</td>
+      </tr>
+      <tr>
+        <th>Supervisor</th>
+        <td>{{ scholar.supervisor.salutation }}{{ scholar.supervisor.name }}</td>
+      </tr>
 
-            <tr>
-              <th>Pre Submission Date</th>
-              <td>NA </td>
-            </tr>
+      <tr>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Other Details
+          </button>
 
-            <tr>
-              <th>Thesis Submission Date</th>
-              <td>NA </td>
-            </tr>
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header p-2">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Other Details</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                  <table>
+                    <tr>
+                      <th>HOD Nominee</th>
+                      <td>{{ scholar.hod_nominee.salutation }}{{ scholar.hod_nominee.name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Supervisor Nominee</th>
+                      <td>{{ scholar.supervisor_nominee.salutation }}{{ scholar.supervisor_nominee.name }}</td>
+                    </tr>
 
-              <tr>
-                <th>Viva voce Date</th>
-                <td>NA </td>
-            </tr>
+                    <tr>
+                      <th>Pre Submission Date</th>
+                      <td>{{ scholar.pre_submission_date}} </td>
+                    </tr>
 
-            <tr>
-              <th>Result Declared Date</th>
-              <td>NA</td>
-          </tr>
+                    <tr>
+                      <th>Thesis Submission Date</th>
+                      <td>{{ scholar.thesis_submission_date}} </td>
+                    </tr>
 
-        </table>
-    </div>
-    <div class="btn-container">
-        <a href="/update_scholar/{{ scholar.scholar_id }}" class="btn">Update Details</a>
-        <a href="/view_report/{{ scholar.scholar_id }}" class="btn">View Reports</a>
+                    <tr>
+                      <th>Viva voce Date</th>
+                      <td>{{ scholar.viva_voce_date}} </td>
+                    </tr>
+
+                    <tr>
+                      <th>Result Declared Date</th>
+                      <td>{{ scholar.date_of_award}}</td>
+                    </tr>
+
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {% if scholar.status == "awarded" %}
+            <h2><span class="badge bg-success mt-0">{{ scholar.status }}</span></h2>
+            
+            {% elif scholar.status == "de_registered" or scholar.status == "cancelled" %}
+            <h2><span class="badge bg-danger mt-0">{{ scholar.status }}</span></h2>
+         
+          {% endif %}
+        </td>
         
-    </div>
+      </tr>
+
+
+
+    </table>
+  </div>
+  <div class="btn-container">
+    <a href="/update_scholar/{{ scholar.scholar_id }}" class="btn">Update Details</a>
+    <a href="/view_reports/{{ scholar.scholar_id }}" class="btn">View Reports</a>
+
+  </div>
 </div>
 {% endblock %}

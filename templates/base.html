@@ -1,217 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-          background-color: #d3eaee09;
-          justify-content: center;
-        }
-        
-        header, footer {
-          background-color: #9F2B00;
-          color: #fff;
-          padding: 20px;
-          text-align: center;
-        }
-        footer {
-          background-color: #9F2B00;
-          color: #fff;
-          padding: 5px;
-          text-align: center;
-        }
-    
-        h1 {
-          margin-bottom: 20px;
-          margin-top: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-    
-        .container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          flex: 1;
-        }
-    
-        .card {
-          width: 300px;
-          height: 200px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin: 10px;
-          background-color: #e3eda9;
-          display: flex;
-          flex-direction: column; /* Added */
-          
-        }
-    
-        .card-header {
-          background-color: #9F2B00;
-          padding: 10px;
-          font-weight: bold;
-          align-self:auto; /* Added */
-          text-align: center;
-          color: #F0F0F0;
-          
-        }
-    
-        .card-body {
-          padding: 20px;
-          
-        }
-    
-        .card-title {
-          margin-bottom: 10px;
-          font-size: 20px;
-          font-weight: bold;
-        }
-    
-        /* .card-text {
-          margin-bottom: 20px;
-        } */
-    
-        .card-link {
-          display: block;
-          margin-bottom: 10px;
-          color: #007bff;
-          text-decoration: none;
-          font-size: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <style>
+    header,
+    footer {
+      background-color: #AA3C1A;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
 
-        table {
-            width: 90%;
-            margin: 20px;
-            border: 5px solid #F0F0F0;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-        }
+    footer {
+      background-color: #AA3C1A;
+      color: #fff;
+      padding: 5px;
+      text-align: center;
+    }
 
-        
-        th {
-            background-color: #9F2B00;
-            padding: 8px;
-            text-align: center;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-            color: #F0F0F0;
-        }
-        
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #D0B8A8;
-        }
-        tr:nth-child(odd) {
-            background-color: #F8EDE3;
-        }
-        
-        tr:hover {
-            background-color: #e6e6e6;
-        }
+    h1 {
+      margin-bottom: 20px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hide {
+      display: none;
+    }
 
-        form {
-            max-width: 600px;
-            min-width: 700px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        input[type="text"],
-        input[type="number"],
-        input[type="checkbox"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea{
-            height: 80px;
-        }
-        
-        input[type="radio"] {
-            width: auto;
-            margin: 5px 30px 5px 30px;
+    .search-input-group {
+      width: 400px;
+    }
 
-        }
-        
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .home-icon {
-            color: #fff;
-            text-decoration: none;
-            font-size: 30px;
-            margin-right: 10px;
-        }
-    
-    </style>
-    {% block head %}
-    
-    {% endblock %}
-    
+    .container {
+      flex-grow: 1;
+    }
+  </style>
+
+
+  {% block head %}
+  <!-- Additional head content goes here if needed -->
+  {% endblock %}
+
 </head>
-<body>
-    <header>
-        <h1>
-            <a href="/" style="text-decoration: none; color: inherit;">
-              <img src="{{ url_for('static', filename='house-solid.svg') }}" alt="Home Icon" width="30" height="30" class="home-icon">
-            </a>
-            RAC Management System
-        </h1>
-    </header>
-    <div class="container">
-        {% block body %}
-    
-        {% endblock %}
-    </div>
-    <footer>
-        <p>Department of Computer Science and Information Technology<br>
-          School of Technology<br>
-          Maulana Azad National Urdu University (Central University)<br>
-          Gachibowli, Hyderabad, Telangana - 500032, India
-          <br>&copy; 2023
-        
-        </p>
-    </footer>
+
+<body style="font-family: 'Times New Roman', Times, serif;background-color: #E0E8E2;">
+  <header>
+    <h1>
+      <a href="/" style="text-decoration: none; color: inherit;">
+        <img src="{{ url_for('static', filename='house-solid.svg') }}" alt="Home Icon" width="30" height="30"
+          class="home-icon">
+      </a>
+      RAC Management System
+    </h1>
+
+    <!-- Navigation menu -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+
+        <!-- Navbar toggle button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav me-auto ">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Scholar
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/scholars">Scholar</a></li>
+                <li><a class="dropdown-item" href="/new_scholar">Add New Scholar</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                RAC Members
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/supervisors">RAC Member</a></li>
+                <li><a class="dropdown-item" href="/new_supervisor">Add New RAC Member</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Reports
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Check Reports</a></li>
+                <li><a class="dropdown-item" href="/scholar_report">Add New Reports</a></li>
+                <li><a class="dropdown-item" href="/attendence">Attendence Sheet</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Search form -->
+          <form action="/scholars" method="POST" class="d-flex m-0 p-0" id="search-form">
+            <div class="input-group m-0 p-0 search-input-group">
+              <select name="search_criteria" class="form-select m-0 " id="search_criteria">
+                <option value="name" selected>Name</option>
+                <option value="roll_no">Roll No</option>
+                <option value="date_of_admission">Year of Admission</option>
+                <option value="status">Status</option>
+                <option value="supervisor">Supervisor</option>
+              </select>
+
+              <!-- Input fields for different search criteria -->
+              <input type="text" name="name_input" class="form-control hide m-0" id="name_input"
+                placeholder="Scholar Name" style="display: block;" required>
+              <input type="text" name="roll_no_input" class="form-control hide m-0" id="roll_no_input"
+                placeholder="Scholar Roll No">
+              <input type="text" name="supervisor_input" class="form-control hide m-0" id="supervisor_input"
+                placeholder="Supervisor Name">
+              <select name="year_of_admission_input" class="form-select hide m-0" id="date_of_admission_input">
+                <!-- JavaScript code will populate the options dynamically -->
+              </select>
+              <select name="status_input" class="form-select hide m-0" id="status_input">
+                <option value="in_progress">In Progress</option>
+                <option value="awarded">Awarded</option>
+                <option value="de_registered">Deregistered</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+
+              <!-- Submit button -->
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  {% block body %}
+  <!-- Main content goes here -->
+
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer>
+    <p>Department of Computer Science and Information Technology<br>
+      School of Technology<br>
+      Maulana Azad National Urdu University (Central University)<br>
+      Gachibowli, Hyderabad, Telangana - 500032, India
+      <br>&copy; 2023
+    </p>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Populate the options for "Year of Admission" dynamically
+      var yearOfAdmissionSelect = document.getElementById('date_of_admission_input');
+      var currentYear = new Date().getFullYear();
+      var startYear = 2010; // Start year for the options
+
+      for (var year = currentYear; year >= startYear; year--) {
+        var option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearOfAdmissionSelect.appendChild(option);
+      }
+
+      // Update input fields based on the selected search criteria
+      document.getElementById('search_criteria').addEventListener('change', function () {
+        var nameInput = document.getElementById('name_input');
+        var rollNoInput = document.getElementById('roll_no_input');
+        var yearOfAdmissionInput = document.getElementById('date_of_admission_input');
+        var statusInput = document.getElementById('status_input');
+        var supervisorInput = document.getElementById('supervisor_input')
+
+        nameInput.style.display = 'none';
+        rollNoInput.style.display = 'none';
+        yearOfAdmissionInput.style.display = 'none';
+        statusInput.style.display = 'none';
+        supervisorInput.style.display = 'none';
+
+        if (this.value === 'name') {
+          nameInput.style.display = 'block';
+          nameInput.setAttribute('required', 'required');
+          rollNoInput.removeAttribute('required');
+          yearOfAdmissionInput.removeAttribute('required');
+          statusInput.removeAttribute('required');
+          supervisorInput.removeAttribute('required');
+        } else if (this.value === 'roll_no') {
+          rollNoInput.style.display = 'block';
+          rollNoInput.setAttribute('required', 'required');
+          nameInput.removeAttribute('required');
+          yearOfAdmissionInput.removeAttribute('required');
+          statusInput.removeAttribute('required');
+          supervisorInput.removeAttribute('required');
+        } else if (this.value === 'date_of_admission') {
+          yearOfAdmissionInput.style.display = 'block';
+          yearOfAdmissionInput.setAttribute('required', 'required');
+          nameInput.removeAttribute('required');
+          rollNoInput.removeAttribute('required');
+          statusInput.removeAttribute('required');
+          supervisorInput.removeAttribute('required');
+        } else if (this.value === 'status') {
+          statusInput.style.display = 'block';
+          statusInput.setAttribute('required', 'required');
+          nameInput.removeAttribute('required');
+          rollNoInput.removeAttribute('required');
+          yearOfAdmissionInput.removeAttribute('required');
+          supervisorInput.removeAttribute('required');
+        } else if (this.value === 'supervisor') {
+          supervisorInput.style.display = 'block';
+          supervisorInput.setAttribute('required', 'required');
+          statusInput.removeAttribute('required');
+          nameInput.removeAttribute('required');
+          rollNoInput.removeAttribute('required');
+          yearOfAdmissionInput.removeAttribute('required');
+        }
+
+      });
+
+      document.getElementById('search-form').addEventListener('submit', function (e) {
+        // e.preventDefault();
+        var search_criteria = document.getElementById('search_criteria').value;
+        var nameInput = document.getElementById('name_input');
+        var rollNoInput = document.getElementById('roll_no_input');
+        var yearOfAdmissionInput = document.getElementById('date_of_admission_input');
+        var statusInput = document.getElementById('status_input');
+        var supervisorInput = document.getElementById('supervisor_input')
+
+        if (search_criteria !== 'name') {
+          nameInput.removeAttribute('required');
+          nameInput.disabled = true;
+        }
+
+        if (search_criteria !== 'roll_no') {
+          rollNoInput.disabled = true;
+        }
+
+        if (search_criteria !== 'date_of_admission') {
+          yearOfAdmissionInput.disabled = true;
+        }
+
+        if (search_criteria !== 'status') {
+          statusInput.disabled = true;
+        }
+        if (search_criteria !== 'supervisor') {
+          supervisorInput.disabled = true;
+        }
+
+        // Perform your search or further actions here
+      });
+    });
+  </script>
 </body>
+
 </html>

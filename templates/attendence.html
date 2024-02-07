@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Attendance</title>
+{% endblock %}
+
+{% block body %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container my-2">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="background-color: #F0D4AE;">
+                    <div class="card-body">
+
+                        <form action="/attendence" method="POST">
+                            <h2 class="text-center mb-4">Attendance sheet form</h2>
+                            <div class="mb-3 row">
+                                <label for="status" class="col-sm-4 col-form-label">Status:</label>
+                                <div class="col-sm-8">
+                                    <select id="status" name="status" class="form-select" required>
+                                        <option value="in_progress" selected>In Progress</option>
+                                        <option value="awarded">Awarded</option>
+                                        <option value="de_registered">De-Registered</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="supervisor_id" class="col-sm-4 col-form-label">Supervisor Name:</label>
+                                <div class="col-sm-8">
+                                    <select id="supervisor_id" name="supervisor_id" class="form-select">
+                                        <option value="">Select Supervisor</option>
+                                        {% for sup in supervisors %}
+                                            <option value="{{ sup.supervisor_id }}">{{ sup.salutation }} {{ sup.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row ps-5">
+                                <label class="form-check">
+                                    <input type="radio" id="full_time_yes" name="full_time" value="1" checked>
+                                    <span class="pe-5 me-5">Full-Time</span>
+                                    <input type="radio" id="full_time_no" name="full_time" value="0">
+                                    <span>Part-Time</span>
+                                </label>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="year" class="col-sm-4 col-form-label">Year:</label>
+                                <div class="col-sm-8">
+                                    <select id="year" name="year" class="form-select">
+                                        <!-- JavaScript will populate this dropdown -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 offset-5">
+                                    <button type="submit" class="btn btn-primary">Download</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    
+
+    <script>
+        // JavaScript to populate the year dropdown
+        var currentYear = new Date().getFullYear();
+        var startYear = 2010;
+        var yearDropdown = document.getElementById('year');
+
+        //var defaultOption = document.createElement('option');
+        // defaultOption.value = "";
+        // defaultOption.text = "Select Year";
+        // yearDropdown.add(defaultOption);
+
+        for (var year = currentYear; year >= startYear; year--) {
+            var option = document.createElement('option');
+            option.value = year;
+            option.text = year;
+            yearDropdown.add(option);
+        }
+    </script>
+
+{% endblock %}

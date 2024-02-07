@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+application/__pycache__/
+
+
+# Virtual Environment
+env/
+data/
+
+# IDE
+.vscode/
+
+# Flask
+# instance/
+

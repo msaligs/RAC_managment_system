@@ -1,0 +1,21 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* @page {
+    size: A4;
+    margin: 0 1cm 1cm 1cm;
+    background-color: blueviolet;
+
+}
+
+@media print{
+    td:nth-child(1){
+        width: 40px;
+    }
+    .container{
+        background-color: aqua;
+    }
+} */

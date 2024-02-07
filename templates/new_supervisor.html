@@ -1,48 +1,72 @@
 {% extends 'base.html' %}
 
-{% block head%}
-    <title> New Supervisor</title>
+{% block head %}
+<title>New Supervisor</title>
 {% endblock %}
 
 {% block body %}
+<div class="container my-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card " style="background-color: #F0D4AE;">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Add New Supervisor</h3>
 
-<form action="/new_supervisor" method="POST">
-    <h1>Add New Supervisor</h1>
-    <label for="salutation">Salutation:</label>
-    <select id="salutation" name="salutation" required>
-            <option value="Prof.">Select Salutation</option>
-            <option value="Prof.">Prof.</option>
-            <option value="Dr.">Dr.</option>
-    </select>
+                    <form action="/new_supervisor" method="POST">
+                        <div class="row mb-3">
+                            <label for="salutation" class="col-sm-4 col-form-label">Salutation:</label>
+                            <div class="col-sm-8">
+                                <select id="salutation" name="salutation" class="form-select" required>
+                                    <option value="Prof.">Select Salutation</option>
+                                    <option value="Prof.">Prof.</option>
+                                    <option value="Dr.">Dr.</option>
+                                </select>
+                            </div>
+                        </div>
 
-    <br><br>
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-4 col-form-label">Supervisor Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+                        </div>
 
-    <label for="name">Supervisor Name:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <br><br>
+                        <div class="row mb-3">
+                            <label for="designation" class="col-sm-4 col-form-label">Designation:</label>
+                            <div class="col-sm-8">
 
-    <label for="designation">Designation:</label>
-    <select id="designation" name="designation" required>
-            <option value="Professor">Professor</option>
-            <option value="Associate Professor">Associate Professor</option>
-            <option value="Assistant Professor.">Assistant Professor</option>
-    </select>
-    
-    <br><br>
+                                <select id="designation" name="designation" class="form-select" required>
+                                    <option value="Professor">Professor</option>
+                                    <option value="Associate Professor">Associate Professor</option>
+                                    <option value="Assistant Professor">Assistant Professor</option>
+                                </select>
+                            </div>
+                        </div>
 
-    <label for="department">Department:</label>
-    <input type="text" id="department" name="department" required>
-    
-    <br><br>
+                        <div class="row mb-3">
+                            <label for="department" class="col-sm-4 col-form-label">Department:</label>
+                            <div class="col-sm-8">
 
-    <label for="university">University:</label>
-    <input type="text" id="university" name="university" required>
-    
-    <br><br>
-    
-    <input type="submit" value="Add Supervisor">
-  </form>
-  
+                                <input type="text" id="department" name="department" class="form-control" required>
+                            </div>
+                        </div>
 
+                        <div class="row mb-3">
+                            <label for="university" class="col-sm-4 col-form-label">University:</label>
+                            <div class="col-sm-8">
+
+                                <input type="text" id="university" name="university" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10 offset-sm-4">
+                                <button type="submit" class="btn btn-primary">Add Supervisor</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

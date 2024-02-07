@@ -1,108 +1,273 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Update Scholar Details</title>
+<title>Update Scholar Details</title>
 {% endblock %}
 
 {% block body %}
-    
-    
-    <form action="/update_scholar/{{ scholar.scholar_id }}" method="POST" onsubmit="return validateForm()">
-        <h1> {{ scholar.name }}</h1>
-        <input type="number" id="ID" name="ID" value="{{ scholar.scholar_id }}" disabled hidden>
-    
-        <label for="name">Scholar Name:</label>
-        <div class="input-container">
-            <input type="text" id="name" name="name" value="{{ scholar.name }}" disabled>
-            <button type="button" class="edit-button" onclick="toggleField('name')">Edit</button>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="container my-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Update Scholar {{ scholar.name }}</h3>
+
+                    <form action="/update_scholar/{{scholar.scholar_id}}" method="POST" onsubmit="return validateForm()">
+
+
+
+
+
+                        <div class="row mb-3">
+                            <label for="research_topic" class="col-sm-4 col-form-label">Research Topic:</label>
+                            <div class="col-sm-8">
+                                <textarea id="research_topic" name="research_topic" class="form-control">
+                                    {{ scholar.research_topic|trim }}
+                                </textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mb-3">
+                            <label for="pre_submission_date" class="col-sm-4 col-form-label">Pre Submission
+                                Date:</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="pre_submission_date" id="pre_submission_date"
+                                    class="form-control" value="{{ scholar.pre_submission_date}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="thesis_submission_date" class="col-sm-4 col-form-label">Thesis Submission
+                                Date:</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="thesis_submission_date" id="thesis_submission_date"
+                                    class="form-control" value="{{ scholar.thesis_submission_date}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="viva_voce_date" class="col-sm-4 col-form-label">Viva Voce Date:</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="viva_voce_date" id="viva_voce_date" class="form-control"
+                                    value="{{ scholar.viva_voce_date}}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="date_of_award" class="col-sm-4 col-form-label">Date of Award:</label>
+                            <div class="col-sm-8">
+                                <input type="date" name="date_of_award" id="date_of_award" class="form-control"
+                                    value="{{ scholar.date_of_award}}">
+                            </div>
+                        </div>
+
+
+
+                        <div class="row mb-3">
+                            <label for="supervisor_id" class="col-sm-4 col-form-label">Supervisor Name:</label>
+                            <div class="col-sm-8">
+                                <select id="supervisor_id" name="supervisor_id" class="form-select" required>
+                                    <option value="">Select Supervisor</option>
+                                    {% for sup in supervisor %}
+                                    <option value="{{ sup.supervisor_id }}" {% if
+                                        sup.supervisor_id==scholar.supervisor_id %}selected{% endif %}>{{ sup.salutation
+                                        }} {{ sup.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="hod_nominee_id" class="col-sm-4 col-form-label">HOD Nominee Name:</label>
+                            <div class="col-sm-8">
+                                <select id="hod_nominee_id" name="hod_nominee_id" class="form-select">
+                                    <option value="">Select HoD Nominee</option>
+                                    {% for sup in supervisor %}
+                                    <option value="{{ sup.supervisor_id }}" {% if
+                                        sup.supervisor_id==scholar.hod_nominee_id %}selected{% endif %}>{{
+                                        sup.salutation }} {{ sup.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="supervisor_nominee_id" class="col-sm-4 col-form-label">Supervisor Nominee
+                                Name</label>
+                            <div class="col-sm-8">
+                                <select id="supervisor_nominee_id" name="supervisor_nominee_id" class="form-select">
+                                    <option value="">Select Supervisor Nominee</option>
+                                    {% for sup in supervisor %}
+                                    <option value="{{ sup.supervisor_id }}" {% if
+                                        sup.supervisor_id==scholar.supervisor_nominee_id %}selected{% endif %}>{{
+                                        sup.salutation }} {{ sup.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Other Basic details -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header p-2">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Other Details</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body pt-0">
+                                        <div class="row mb-3">
+                                            <label for="name" class="col-sm-4 col-form-label">Scholar Name:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="name" name="name" value="{{ scholar.name }}"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="roll_no" class="col-sm-4 col-form-label">Roll Number:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="roll_no" name="roll_no"
+                                                    value="{{ scholar.roll_no}}" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="email" class="col-sm-4 col-form-label">Email:</label>
+                                            <div class="col-sm-8">
+                                                <input type="email" id="email" name="email" value="{{ scholar.email}}"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="gender" class="col-sm-4 col-form-label">Gender:</label>
+                                            <div class="col-sm-8">
+                                                <select id="gender" name="gender" class="form-select" required>
+                                                    <!-- <option value="">Select</option> -->
+                                                    <option value="male" {% if scholar.gender=='male' %}selected{% endif
+                                                        %}>Male
+                                                    </option>
+                                                    <option value="female" {% if scholar.gender=='female' %} selected {%
+                                                        endif %}>Female
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="status" class="col-sm-4 col-form-label">Status:</label>
+                                            <div class="col-sm-8">
+                                                <select id="status" name="status" class="form-select" required>
+                                                    <option value="in_progress" {% if scholar.status=='in_progress'
+                                                        %}selected{% endif %}>In Progress</option>
+                                                    <option value="awarded" {% if scholar.status=='awarded' %}selected{%
+                                                        endif %}>
+                                                        Awarded</option>
+                                                    <option value="de_registered" {% if scholar.status=='de_registered'
+                                                        %}selected{% endif %}>De-Registered</option>
+                                                    <option value="cancelled" {% if scholar.status=='cancelled'
+                                                        %}selected{% endif %}>
+                                                        Cancelled</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3 ps-5">
+                                            <label>
+                                                <div class="form-check">
+                                                    <input type="radio" id="full_time_yes" name="full_time" value="true"
+                                                        {% if scholar.full_time==True %}checked{% endif %}>
+                                                    <label for="full_time_yes" class="pe-5 me-5">Full-Time</label>
+
+                                                    <input type="radio" id="full_time_no" name="full_time" value="false"
+                                                        {% if scholar.full_time==False %}checked{% endif %}>
+                                                    <label for="full_time_no">Part-Time</label>
+                                                </div>
+                                            </label>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <label for="date_of_admission" class="col-sm-4 col-form-label">Date of
+                                                Admission:</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" name="date_of_admission" id="date_of_admission"
+                                                    class="form-control" value="{{scholar.date_of_admission}}" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Other Basic details ends here -->
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Basic Details
+                                </button>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <button type="submit" class="btn btn-primary">Update Scholar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-    
-        <label for="roll_no">Roll Number:</label>
-        <div class="input-container">
-            <input type="text" id="roll_no" name="roll_no" value="{{ scholar.roll_no }}" disabled>
-            <button type="button" class="edit-button" onclick="toggleField('roll_no')">Edit</button>
-        </div>
-    
-        <label for="year_of_admission">Date of Registration:</label>
-        <div class="input-container">
-            <select id="year_of_admission" name="year_of_admission" disabled>
-                <option value="">Select Year</option>
-                {% for year in range(2010, 2051) %}
-                    <option value="{{ year }}" {% if year|string == scholar.year_of_admission|string %}selected{% endif %}>{{ year }}</option>
-                {% endfor %}
-            </select>
-            <button type="button" class="edit-button" onclick="toggleField('year_of_admission')">Edit</button>
-        </div>
-        <br>
-        <label for="full_time">
-            <input type="radio" id="full_time_yes" name="full_time" value="true" {% if scholar.full_time %}checked{% endif %}> Full-Time
-            <input type="radio" id="full_time_no" name="full_time" value="false" {% if not scholar.full_time %}checked{% endif %}> Part-Time
-            
-        </label>
+    </div>
+</div>
 
-        <label for="research_topic">Research Topic:</label>
-        <textarea id="research_topic" name="research_topic">{{ scholar.research_topic }}</textarea>
-    
-        
-    
-        <label for="supervisor_id">Supervisor Name:</label>
-        <select id="supervisor_id" name="supervisor_id" required>
-            <option value="">Select Supervisor</option>
-            {% for sup in supervisor %}
-                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.supervisor_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
-            {% endfor %}
-        </select>
-    
-        <label for="hod_nominee_id">HOD Nominee Name:</label>
-        <select id="hod_nominee_id" name="hod_nominee_id">
-            <option value="">Select HoD Nominee</option>
-            {% for sup in supervisor %}
-                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.hod_nominee_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
-            {% endfor %}
-        </select>
-    
-        <label for="supervisor_nominee_id">Supervisor Nominee Name:</label>
-        <select id="supervisor_nominee_id" name="supervisor_nominee_id">
-            <option value="">Select Supervisor Nominee</option>
-            {% for sup in supervisor %}
-                <option value="{{ sup.supervisor_id }}" {% if sup.supervisor_id == scholar.supervisor_nominee_id %}selected{% endif %}>{{ sup.salutation}} {{ sup.name}}</option>
-            {% endfor %}
-        </select>
-    
-        <input type="submit" value="Update Scholar">
-    </form>
+<script>
+    function validateForm() {
+        var supervisor = document.getElementById("supervisor_id").value;
+        var hodNominee = document.getElementById("hod_nominee_id").value;
+        var supervisorNominee = document.getElementById("supervisor_nominee_id").value;
 
-
-    <script>
-        function validateForm() {
-            var supervisor = document.getElementById("supervisor_id").value;
-            var hodNominee = document.getElementById("hod_nominee_id").value;
-            var supervisorNominee = document.getElementById("supervisor_nominee_id").value;
-
-            if ((supervisor && supervisor === hodNominee) ||
-                (supervisor && supervisor === supervisorNominee) ||
-                (hodNominee && hodNominee === supervisorNominee)) {
-                alert("Please select different options.");
-                return false;
-            }
-
-            return true;
+        if ((supervisor && supervisor === hodNominee) ||
+            (supervisor && supervisor === supervisorNominee) ||
+            (hodNominee && hodNominee === supervisorNominee)) {
+            alert("Please select different options.");
+            return false;
         }
 
+        return true;
+    }
 
-        function toggleField(fieldId) {
-            var field = document.getElementById(fieldId);
-            var button = field.nextElementSibling;
-            
-            if (field.disabled) {
-                field.disabled = false;
-                // button.innerText = "Save";
-                button.parentNode.removeChild(button);  
-            } 
-            // else {
-            //     field.disabled = true;
-            //     button.innerText = "Edit";
-            // }
+
+    function toggleField(fieldId) {
+        var field = document.getElementById(fieldId);
+        var button = field.nextElementSibling;
+
+        if (field.disabled) {
+            field.disabled = false;
+            // button.innerText = "Save";
+            button.parentNode.removeChild(button);
         }
-    </script>
+        // else {
+        //     field.disabled = true;
+        //     button.innerText = "Edit";
+        // }
+    }
+</script>
 {% endblock %}

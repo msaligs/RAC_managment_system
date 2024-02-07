@@ -1,20 +1,33 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Enum
+
 db = SQLAlchemy()
 
 class Scholar(db.Model):
     scholar_id = db.Column(db.Integer(),primary_key = True, nullable = False)
     name = db.Column(db.String(50),nullable = False)
     roll_no = db.Column(db.String(15),nullable = False,unique = True)
-    year_of_admission = db.Column(db.String(10),nullable = False)
+    email = db.Column(db.String(25),unique=True)
+    gender = db.Column(db.String(6),nullable = False)
     research_topic = db.Column(db.String(150))
     full_time = db.Column(db.Boolean,nullable= False)
-    status = db.Column(db.String(10),nullable = False)
-    date_of_award = db.Column(db.String(15))
-    
+
+    # status = db.Column(db.String(10),default="In Progress",nullable = False)
+
+    STATUS_CHOICES = ['In Progress', 'Awarded', 'De-Registered', 'Cancelled']
+    status = db.Column(db.String(length=20), Enum(*STATUS_CHOICES), nullable=False, default='In Progress')
+
+
+    date_of_admission = db.Column(db.Date,nullable = False)
+    pre_submission_date = db.Column(db.Date)
+    thesis_submission_date = db.Column(db.Date)
+    viva_voce_date = db.Column(db.Date)
+    date_of_award = db.Column(db.Date)
+
     supervisor_id = db.Column(db.Integer,db.ForeignKey("supervisor.supervisor_id"))
     hod_nominee_id = db.Column(db.Integer,db.ForeignKey("supervisor.supervisor_id"))
     supervisor_nominee_id = db.Column(db.Integer,db.ForeignKey("supervisor.supervisor_id"))
-    
+
     supervisor = db.relationship("Supervisor",backref = 'scholar',foreign_keys=[supervisor_id])
     hod_nominee = db.relationship("Supervisor",backref = 'hod_nominee_scholar', foreign_keys=[hod_nominee_id])
     supervisor_nominee = db.relationship("Supervisor",backref = 'supervisor_nominee_scholar',foreign_keys=[supervisor_nominee_id])

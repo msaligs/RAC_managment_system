@@ -22,9 +22,6 @@
 
 {% block body %}
 <div id="cont" class="container">
-    <!-- <div class="download-button">
-        <a href="/download_report" class="btn btn-primary">Download Consolidated Report</a>
-    </div> -->
     
     <div>
         <h2 style="margin-top: 15px;">{{ scholar.name }}</h2><br>
@@ -37,6 +34,7 @@
         <p>No report available. <a href="/scholar_report">Create one!</a></p>
     </div>
     {% else %}
+    
     {% for rac_report in rac_reports %}
 
     <table>
@@ -58,7 +56,11 @@
                     {% endfor %}
                     </ol>
                 </td>
-                <td rowspan="2" style="background-color: #ebe1dd;"><a href="#">Download Report</a></td>
+                <td rowspan="2" style="background-color: #ebe1dd;">
+                    <!-- <a href="download_report/{{rac_report.rac_report_id}}">Download Report</a> -->
+                    <a href="{{ url_for('download_report', rac_id=rac_report.rac_report_id) }}">Download Report</a>
+
+                </td>
             </tr>
             <tr>
                 <td>Suggestion</td>

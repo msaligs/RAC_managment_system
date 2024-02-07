@@ -1,126 +1,89 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Research Work Update</title>
-    <style>
-        /* CSS styles for the report */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .container {
-            max-width: 794px; /* A4 width minus margins */
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .header img {
-            width: 100%;
-        }
-        
-        .title {
-            margin-bottom: 20px;
-        }
-        
-        .details {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .details table {
-            width: 100%;
-        }
-        
-        .details th,
-        .details td {
-            padding: 5px;
-        }
-        
-        .recommendation {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .supervisor-signature {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            background-color: #ffffff;
-            padding: 10px;
-            }
-
-
-        .supervisor,
-        .hod-nominee,
-        .supervisor-nominee {
-            margin: 0;
-            padding: 0;
-        }
-
-        .supervisor {
-            text-align: left;
-        }
-
-        .hod-nominee {
-            text-align: center;
-        }
-
-        .supervisor-nominee {
-            text-align: right;
-        }
-
-    </style>
+  <title>RAC Report</title>
+  <link rel="stylesheet" href="static/report.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="/static/manuu_header.png" alt="University Logo">
-        </div>
-        
-        <div class="title">
-            <h4>Minutes of the Research Advisory Committee - April 2020</h4>
-        </div>
+  <div class="container mt-0">
+    <div class="header text-center mt-0" >
+      <img src="https://manuucoe.in/ums/assets/img/logo.png" class="border border-info" alt="MANUU Logo">
+      <h2 class="fw-semibold">Department of CS & IT</h2>
+      <p class="fw-bolder">Minutes of the Research Advisory Committee - April 2020</p>
+    </div>
     
-        <div class="details">
-            <p>
-                The meeting of the 10th Research Advisory Committee for PhD Scholar <strong>Mr. Hamza</strong> (batch 2016-17/ Roll No. 12345) was held on 19th May 2020 at 10:00 am through a Zoom meeting and the following members were present:
-            </p>
-            <ol>
-                <li>Dr Pradeep Kumar, Head, Dept. of CS&IT (Supervisor-Convener)</li>
-                <li>Dr Khaleel Ahmad, Assistant Professor, Dept of CS&IT (Nominee of HoD-Member)</li>
-                <li>Dr Muqeem Ahmad, Assistant Professor, Dept of CS&IT (Recommended by the Supervisor Member)</li>
-            </ol>
-        </div>
-        
-        <div class="topic">
-            <h4>Research Project Topic: Security & Privacy in the Digital World</h4>
-        </div>
-        
-        <div class="recommendation">
-            <h3>Recommendation:</h3>
-            <p>The Committee suggested the following necessary actions to the research scholar:</p>
-            <ul>
-                <li>Continue exploring various data analysis methodologies.</li>
-                <li>Consider incorporating machine learning algorithms for improved results.</li>
-                <li>Expand the literature review section to include recent studies in the field.</li>
-            </ul>
-        </div>
-        
-        <div class="supervisor-signature">
-            <p class="supervisor">Supervisor</p>
-            <p class="hod-nominee">Hod Nominee</p>
-            <p class="supervisor-nominee">Supervisor Nominee</p>
-        </div>
-        
+
+    <div class="content fs-6">
+      <p>
+        The meeting of the 10th Research Advisory Committee meeting for PhD Scholar <strong> {{ scholar.name }}</strong> {{ scholar.date_of_admission }}
+        {{ scholar.roll_no }} was
+        held on 19th May 2020 at 10:00 am through Zoom. The following members were present:
+      </p>
+
+      <ol class="ps-5">
+        <li>{{ scholar.supervisor.salutation }} {{ scholar.supervisor.name}}, {{ scholar.supervisor.designation}}, {{ scholar.supervisor.department}}, (Supervisor - Convener)</li>
+        <li>{{ scholar.hod_nominee.salutation }} {{ scholar.hod_nominee.name}}, {{ scholar.hod_nominee.designation}}, {{ scholar.hod_nominee.department}}, (Nominee of Hod)</li>
+        <li>{{ scholar.supervisor_nominee.salutation }} {{ scholar.supervisor_nominee.name}}, {{ scholar.supervisor_nominee.designation}}, {{ scholar.supervisor_nominee.department}}, (Nominee of Supervisor)</li>
+      </ol>
+
+      <p class="fst-italic fs-5">
+        <b> TOPIC: </b> "{{scholar.research_topic}}"
+      </p>
+
+      <p>
+        The PhD scholar,{{ scholar.name }}, appeared before the commitee and gave a brief presentation on the progress of
+        research work and submitted progress report for the persual of the Committee.
+      </p>
+
+      <p>
+        The committee reviewed the research progress of the scholar from the date of previous RAC as follows:
+      </p>
+
+      <ol class="ps-5">
+        {% for review in rac_report.review %}
+        <li>{{ review.review}}</li>
+        {% endfor %}
+      </ol>
+
+      <p>
+        The Committee suggested the following necessary actions to the research scholar:
+        <ol class="ps-5">
+          {% for recom in rac_report.recommendation %}
+
+            <li>{{ recom.recommendation}}</li>
+
+          {% endfor %}
+            
+        </ol>
+      </p>
+
     </div>
 
+    <div class="footer ">
+      <p style="font-size: small;">The copy of the Minutes shall be sent to Hod,CS & IT/ Academic Section/Exam Branch/Research Scholar.</p>
+      <br>
+      <div class="row text-center">
 
+        <div class="col">
+          Supervisor
+        </div>
+
+        <div class="col">
+          HoD Nominee
+        </div>
+
+        <div class="col">
+          Supervisor Nominee
+        </div>
+
+        <hr>
+        
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

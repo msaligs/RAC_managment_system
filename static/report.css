@@ -1,0 +1,63 @@
+
+p{
+    background-color: aqua;
+    color: blue;
+}
+@page {
+    size: A4;
+    margin: 0 1cm 1cm 1cm;
+    background-color: blueviolet;
+
+}@page {
+    size: A4;
+    margin: 0;
+}
+body{
+    background-color: red;
+}
+.content{
+    background-color: aqua;
+}
+.aaa{
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    border: 2px ;
+}
+@media print {
+    body {
+    font-size: 12pt;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    }
+
+    html, body {
+    margin: 0;
+    padding: 0;
+    }
+
+    /* .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+    } */
+
+    .footer {
+    margin-top: 0;
+    margin-bottom: 4px;
+    }
+
+    /* Add this rule to avoid unnecessary page breaks */
+    /* .footer, .header {
+    page-break-after: avoid;
+    } */
+
+    /* Avoid breaking content within the container */
+    /* .content {
+    page-break-inside: avoid;
+    } */
+}

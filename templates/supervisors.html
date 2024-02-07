@@ -1,44 +1,70 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Scholars</title>
-    <style>
-        th:nth-child(1){
-            width: 40px;
-        }
-    </style>
+<title>Supervisors</title>
+<!-- <style>
+    .hide {
+        display: none;
+    }
+</style> -->
+
 {% endblock %}
 
 {% block body %}
-<div id="cont" class="container">
-
-        <table>
-            <thead>
-                <caption><h2>Supervisors Detail </h2></caption>
-                <tr>
-                    <th>S No</th>
-                    <th>Name</th>
-                    <th>Designation</th>
-                    <th>Department</th>
-                    <th>University</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for supervisor in supervisors %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td><a href="/supervisor_scholar/{{ supervisor.supervisor_id}}"> {{ supervisor.salutation }} {{ supervisor.name }} </a></td>
-                    <td>{{ supervisor.designation }}</td>
-                    <td>{{ supervisor.department }}</td>
-                    <td>{{ supervisor.university }}</td>
-                    <td> <a href="/update_supervisor/{{supervisor.supervisor_id}}">Update</a>  </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}" role="alert">
+    {{ message }}
 </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+
+    <div class="row justify-content-center p-2">
+        <h1 class="text-center">RAC Members</h1>
+        {% if supervisors|length == 0%}
+        <p>No supervisor found</p>
+        {% endif %}
+        {% for supervisor in supervisors %}
+        <div class="col-md-6 col-12">
+            <a href="/supervisor_scholar/{{ supervisor.supervisor_id}}" style="text-decoration:none;">
+                <div class="card m-2 p-2" style="background-color: #359c95; ">
+                    <div class="row g-0 px-0">
+                        <div class="col-md-4">
+                            <img src="https://placehold.co/110x140" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8" style="color: black;">
+                            <div class="card-body">
+                                <h5 class="card-title text-capitalize fw-semibold">{{supervisor.salutation}}{{
+                                    supervisor.name }}</h5>
+                                <p class="card-text fst-italic">{{ supervisor.designation }}</p>
+                                <p class="card-text c">{{ supervisor.department }}</p>
+                                <p class="card-text c">{{ supervisor.university }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-0 px-0">
+                        <div class="col-md-6">
+                            <p class="card-text fw-normal px-md-2">
+                                <button> <a href="/update_supervisor/{{supervisor.supervisor_id}}" style="text-decoration: none;">Update Supervisor</a> </button>
+                             </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="card-text fw-normal px-md-2">
+                                <span class="badge text-bg-info ms-1"> Scholars ({{ supervisor.scholar|length }})</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 
 {% endblock %}
